@@ -1,17 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App';
+import Game from './components/Game';
 import { createStore } from 'redux';
-import gameReducer from './reducers/gamereducer'
+import { Provider } from 'react-redux';
+import SquaresReducer from './reducers/SquaresReducer'
 
-const store = createStore(gameReducer);
+const store = createStore(SquaresReducer);
 
-let unsubscribe = store.subscribe(() =>
-    console.log(store.getState())
-);
+// let unsubscribe = store.subscribe(() =>
+//     console.log(store.getState())
+// );
 
 ReactDOM.render(
-    <App />,
+    <Provider store={store}>
+        <Game />
+    </Provider>,
     document.getElementById('root')
 );
