@@ -4,9 +4,9 @@ import './index.css';
 import Game from './components/Game';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import SquaresReducer from './reducers/SquaresReducer'
+import rootReducer from './reducers/index';
 
-const store = createStore(SquaresReducer);
+const store = createStore(rootReducer);
 
 // let unsubscribe = store.subscribe(() =>
 //     console.log(store.getState())
