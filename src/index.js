@@ -4,13 +4,13 @@ import './index.css';
 import Game from './components/Game';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from './reducers/index';
+import SquaresReducer from './reducers/SquaresReducer';
 
-const store = createStore(rootReducer);
+const store = createStore(SquaresReducer);
 
-// let unsubscribe = store.subscribe(() =>
-//     console.log(store.getState())
-// );
+let unsubscribe = store.subscribe(() =>
+    console.log(store.getState())
+);
 
 ReactDOM.render(
     <Provider store={store}>

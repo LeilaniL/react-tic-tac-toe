@@ -8,28 +8,29 @@ class Board extends React.Component {
     }
 
     handleClick(i) {
-        console.log('I' + i);
-        const { dispatch } = this.props;
-        console.log('handleClick props.squares: ' + this.props.squares.squares);
-        console.log('handleClick xIsNext: ' + this.props.xIsNext.xIsNext);
-        const newSquares = [...this.props.squares.squares];
-        // if (calculateWinner(newSquares) || newSquares[i]) {
-        //     console.log('you win!');
-        //     return;
-        // }
-        if (this.props.xIsNext.xIsNext) {
-            const action = {
-                type: 'MARK_X',
-                index: i
-            }
-            console.log('xIsNext was true');
-            dispatch(action);
+        console.log(i);
+        console.log(this.props.squares[i]);
+        if (calculateWinner(this.props.squares) || this.props.squares[i]) {
+            return;
         }
-        newSquares[i] = this.props.xIsNext ? 'X' : 'O';
-        // this.setState({
-        //     // squares: squares,
-        //     xIsNext: !this.props.xIsNext,
-        // });
+        if (this.props.squares[i] == null) {
+            const { dispatch } = this.props;
+            if (this.props.xIsNext) {
+                const action = {
+                    type: 'MARK_X',
+                    index: i
+                }
+                dispatch(action);
+            } else {
+                const action = {
+                    type: 'MARK_O',
+                    index: i
+                }
+                dispatch(action);
+            }
+        } else {
+            return
+        }
     }
 
     renderSquare(i) {
@@ -47,10 +48,6 @@ class Board extends React.Component {
         if (winner) {
             status = 'Winner: ' + winner;
         }
-        // else {
-        //     // status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
-        // }
-
         return (
             <div>
                 <div className="status">{status}</div>
@@ -94,6 +91,7 @@ function calculateWinner(squares) {
 }
 
 const mapStateToProps = state => {
+    console.log(state);
     return {
         squares: state.squares,
         xIsNext: state.xIsNext
